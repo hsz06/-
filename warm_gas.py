@@ -19,33 +19,32 @@ print(dt1.info())
 #查看各行业气体排放的变化
 #农业林业和渔业
 list1=dt1['Industry']=='Agriculture, Forestry and Fishing'
-Agriculture_Forestry_Fishing1=dt1[list1].drop(labels=["Industry"],axis=1).T
-print(list(Agriculture_Forestry_Fishing1))
-#Agriculture_Forestry_Fishing1.plot()
+Agriculture_Forestry_Fishing1=dt1[list1].drop(labels=["Industry","Gas_Type"],axis=1).T
+print(Agriculture_Forestry_Fishing1)
+Agriculture_Forestry_Fishing1.plot()
 plt.show()
 #农业林业和渔业
 list1=dt1['Industry']=='Agriculture, Forestry and Fishing'
 Agriculture_Forestry_Fishing1=dt1[list1].drop(labels=["Industry"],axis=1).T
 print(list(Agriculture_Forestry_Fishing1))
 #Agriculture_Forestry_Fishing1.plot()
-plt.show()
+#plt.show()
 #农业林业和渔业
 list1=dt1['Industry']=='Agriculture, Forestry and Fishing'
 Agriculture_Forestry_Fishing1=dt1[list1].drop(labels=["Industry"],axis=1).T
 print(list(Agriculture_Forestry_Fishing1))
 #Agriculture_Forestry_Fishing1.plot()
-plt.show()
+#plt.show()
 #农业林业和渔业
 list1=dt1['Industry']=='Agriculture, Forestry and Fishing'
 Agriculture_Forestry_Fishing1=dt1[list1].drop(labels=["Industry"],axis=1).T
 print(list(Agriculture_Forestry_Fishing1))
 #Agriculture_Forestry_Fishing1.plot()
-plt.show()
+#plt.show()
 #农业林业和渔业
 list1=dt1['Industry']=='Agriculture, Forestry and Fishing'
 Agriculture_Forestry_Fishing1=dt1[list1].drop(labels=["Industry"],axis=1).T
 print(list(Agriculture_Forestry_Fishing1))
-#Agriculture_Forestry_Fishing1.plot()
-plt.show()
+#plt.show()
 
 
