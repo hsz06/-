@@ -45,7 +45,6 @@ plt.show()
 list1=dt1['Industry']=='Agriculture, Forestry and Fishing'
 Agriculture_Forestry_Fishing1=dt1[list1].drop(labels=["Industry"],axis=1).T
 print(list(Agriculture_Forestry_Fishing1))
-#Agriculture_Forestry_Fishing1.plot()
 plt.show()
 
 
