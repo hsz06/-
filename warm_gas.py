@@ -100,6 +100,7 @@ plt.show()
 list1=dt1['Industry']=='Total Industry and Households'
 Total_Industry_Households=dt1[list1].drop(labels=["Industry","Gas_Type"],axis=1).T
 Total_Industry_Households1=Total_Industry_Households.loc[:,1246]
+print(list(Total_Industry_Households1))
 Total_Industry_Households1.plot(label="全部行业和家庭")
 plt.title("全部行业和家庭温室气体的排放")
 plt.show()
