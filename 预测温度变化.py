@@ -1,6 +1,7 @@
 import numpy as np
+from matplotlib import pyplot as plt
 from sklearn.linear_model import LinearRegression
-
+import seaborn as sns
 future_percent=[]
 future_warm_gas=[]
 # 历年能源转型排放数据
@@ -29,6 +30,7 @@ for i in range(len(future_X)):
 # 历年温室气体排放数据
 warm_gas = np.array([45512.83033, 46823.61819, 47545.52433, 48157.58948, 48640.85987, 48462.70094, 48565.79311, 49392.2332, 50389.95422, 50564.0993, 48936.97075, 51061.06518])
 
+
 # 构建特征矩阵和目标向量
 X = np.arange(1, len(warm_gas)+1).reshape(-1, 1)
 y = warm_gas.reshape(-1, 1)
@@ -56,6 +58,8 @@ from sklearn.linear_model import LinearRegression
 temper = np.array([0.22797156398104265, 0.2064306220095694, 0.6108038277511961, 0.6300094786729858, 0.2877061611374408, 0.5422019230769232, 0.9828018867924528, 0.7521, 0.6747867298578198, 0.8624258373205742, 0.9297264150943395, 0.8450093023255815, 0.7737476635514018, 0.8474225352112676, 0.8562638888888889, 1.011589861751152, 0.7962394366197183, 0.9020654205607477, 1.0877906976744185, 0.8039953917050691, 0.8874205607476636, 0.917185185185185, 1.0961203703703704, 1.2529814814814815, 1.4279906976744186, 1.2699392523364488, 1.2881018518518519, 1.4276279069767441, 1.538565420560748, 1.3170093457943928])
 
 #线性回归预测
+g = sns.heatmap([warm_gas,].corr(),annot=True, cmap = "coolwarm")
+plt.show()
 # 构建特征矩阵和目标向量
 temper1=temper[:-1]
 X = np.arange(1, len(temper1)+1).reshape(-1, 1)
@@ -117,8 +121,10 @@ future_X = np.column_stack((future_warm_gas, future_percent))
 future_temper = model.predict(future_X)
 
 print("未来三年温度变化预测：")
+j=2021
 for i in range(len(future_temper)):
-    print(f"第{i+1}年预测温度变化：{future_temper[i]}")
+    print(f"第{j}年预测温度变化：{future_temper[i]}")
+    j=j+1
 #根据21年数据判断模型，最终选择根据当年数据预测温度变化比较契合
 '''
 线性回归预测温度变化

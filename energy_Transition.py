@@ -30,6 +30,7 @@ Total_Renewable=Electricity_Generation[list2].drop(labels=["Energy_Type","Techno
 print(Total_Renewable)
 Total_Renewable.plot()
 plt.legend(prop = {'size':7},bbox_to_anchor=(1,1),labels=['生物能源','地热能','水电','海洋能源','太阳能','风能'])
+plt.title('可再生能源总量')
 plt.show()
 
 
@@ -42,6 +43,7 @@ Total_NoneRenewable=Electricity_Generation[list2].drop(labels=["Energy_Type","Te
 print(Total_NoneRenewable)
 Total_NoneRenewable.plot()
 plt.legend(prop = {'size':7},bbox_to_anchor=(1,1),labels=['化石燃料','核','其他不可再生能源','抽水蓄能'])
+plt.title('不可再生能源总量')
 plt.show()
 
 #可再生总量
@@ -65,7 +67,7 @@ print(all1)
 all1.plot(label='不可再生能源总量')
 plt.legend(prop = {'size':7},bbox_to_anchor=(1,1))
 
-plt.title("不可再生能源总量变化")
+plt.title("可再生能源与不可再生能源总量变化")
 plt.show()
 
 list1=list(all)
@@ -76,7 +78,8 @@ print(list3)
 percent=[list1[i]/list3[i] for i in range(len(list1))]
 print(percent)
 percent=DataFrame(percent)
-percent.plot()
+percent.plot(label='百分比')
 #plt.xticks([2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020])
 plt.title('可再生能源在能源总量中的占比')
+plt.legend(prop = {'size':7},bbox_to_anchor=(1,1))
 plt.show()

@@ -1,31 +1,32 @@
 import pandas as pd
 import jieba.analyse
+import wordcloud
+import pandas as pd
+import csv
+import jieba
+import matplotlib.pyplot as plt
 from stylecloud import gen_stylecloud
 
 # 读取文件
-pd_data = pd.read_csv('methods2.txt')
+with open("methods2.txt",'r',encoding='utf') as f:
+    pd_data = f.read()
 
 # 读取内容
 text = pd_data
+# 添加停用词
+stopwords_filefath = 'stopword_normal.txt'
+sw = [line.strip() for line in open(stopwords_filefath, 'r',encoding='utf-8').readlines()]
+sw_u=[x for x in sw]
 
-# 切割分词
-wordlist = jieba.lcut_for_search(''.join(text))
-result = ' '.join(wordlist)
-
-# 设置停用词
-stop_words = ['什么', '然而', '可以', '巴黎', '全球', '使用', '协定', '加强', '提高', '通过', '方式 ', '我们', '方式', '利用', '应对', '生活']
-ciyun_words = ''
-
-for word in result:
-    if word not in stop_words:
-        ciyun_words += word
-
-gen_stylecloud(text=result,
-               size=2048,
-               icon_name='fas fa-leaf',
-               font_path='msyh.ttc',
-               background_color='white',
-               output_name='wordCloud.jpg',
-               custom_stopwords=stop_words
-               )
+#collocations=False:解决词云关键字重复多次的问题
+wc = wordcloud.WordCloud(background_color='white', font_path='simhei.ttf',stopwords=sw_u,collocations=False,
+                         max_words=300, margin=0,min_font_size=2,max_font_size=100,random_state = 42,scale=2,
+                         width=1400, height=1000)
+wc.generate_from_text(pd_data )
+plt.rcParams['figure.figsize'] = (12.6, 9.0) # 设置figure_size尺寸
+plt.rcParams['figure.dpi'] = 250
+plt.imshow(wc)
+plt.axis('off')
+plt.savefig('措施.jpg')
+plt.show()
 
