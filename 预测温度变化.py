@@ -241,6 +241,7 @@ model = LinearRegression()
 
 
 # 构建特征矩阵,选取温室气体排放，能源转型数据和温度变换数据
+sort1=[]
 print('温室气体排放，能源转型数据和温度变换数据作为特征值')
 X = np.column_stack((warm_gas[1:], percent[10:],temper[18:-1]))
 y = flood[10:21]
@@ -249,6 +250,7 @@ model.fit(X, y)
 future_X = np.column_stack((future_warm_gas, future_percent,future_temper))
 floodfuture = model.predict(future_X)
 print(f"洪水：{floodfuture}")
+sort1.append(average(floodfuture))
 #极端温度
 X = np.column_stack((warm_gas[1:], percent[10:],temper[18:-1]))
 y = Extreme_temperature[10:21]
@@ -257,7 +259,7 @@ model.fit(X, y)
 future_X = np.column_stack((future_warm_gas, future_percent,future_temper))
 Extreme_temperaturefut = model.predict(future_X)
 print(f"极端温度：{Extreme_temperaturefut}")
-
+sort1.append(average(Extreme_temperaturefut))
 #干旱
 X = np.column_stack((warm_gas[1:], percent[10:],temper[18:-1]))
 y = Drought[10:21]
@@ -266,7 +268,7 @@ model.fit(X, y)
 future_X = np.column_stack((future_warm_gas, future_percent,future_temper))
 Droughtfut = model.predict(future_X)
 print(f"干旱：{Droughtfut }")
-
+sort1.append(average(Droughtfut))
 #野火
 X = np.column_stack((warm_gas[1:], percent[10:],temper[18:-1]))
 y = Wildfire[10:21]
@@ -277,7 +279,7 @@ model.fit(X, y)
 future_X = np.column_stack((future_warm_gas, future_percent,future_temper))
 Wildfirefut = model.predict(future_X)
 print(f"野火：{Wildfirefut }")
-
+sort1.append(average(Wildfirefut))
 #飓风
 X = np.column_stack((warm_gas[1:], percent[10:],temper[18:-1]))
 y = storm[10:21]
@@ -286,8 +288,10 @@ model.fit(X, y)
 future_X = np.column_stack((future_warm_gas, future_percent,future_temper))
 stormfut = model.predict(future_X)
 print(f"飓风：{stormfut }")
+sort1.append(average(stormfut))
 
 # 构建特征矩阵,选取能源转型数据和温度变换数据
+sort2=[]
 print('能源转型数据和温度变换数据作为特征值')
 X = np.column_stack((percent,temper[8:-1]))
 y = flood[:21]
@@ -296,7 +300,7 @@ model.fit(X, y)
 future_X = np.column_stack((future_percent,future_temper))
 floodfuture = model.predict(future_X)
 print(f"洪水：{floodfuture}")
-
+sort2.append(average(floodfuture))
 #极端温度
 X = np.column_stack((percent,temper[8:-1]))
 y = Extreme_temperature[:21]
@@ -305,7 +309,7 @@ model.fit(X, y)
 future_X = np.column_stack((future_percent,future_temper))
 Extreme_temperaturefut = model.predict(future_X)
 print(f"极端温度：{Extreme_temperaturefut}")
-
+sort2.append(average(Extreme_temperaturefut))
 #干旱
 X = np.column_stack((percent,temper[8:-1]))
 y = Drought[:21]
@@ -314,7 +318,7 @@ model.fit(X, y)
 future_X = np.column_stack((future_percent,future_temper))
 Droughtfut = model.predict(future_X)
 print(f"干旱：{Droughtfut }")
-
+sort2.append(average(Droughtfut))
 #野火
 X = np.column_stack((percent,temper[8:-1]))
 y = Wildfire[:21]
@@ -323,7 +327,7 @@ model.fit(X, y)
 future_X = np.column_stack((future_percent,future_temper))
 Wildfirefut = model.predict(future_X)
 print(f"野火：{Wildfirefut }")
-
+sort2.append(average(Wildfirefut))
 #飓风
 X = np.column_stack((percent,temper[8:-1]))
 y = storm[:21]
@@ -332,3 +336,18 @@ model.fit(X, y)
 future_X = np.column_stack((future_percent,future_temper))
 stormfut = model.predict(future_X)
 print(f"飓风：{stormfut }")
+sort2.append(average(stormfut))
+#处理负数
+plt.rcParams['font.sans-serif'] = ['SimHei']
+for i in range(len(sort1)):
+    sort1[i]=sort1[i]+2
+plt.pie(sort1, labels=['洪水','极端温度','干旱','野火','飓风'],autopct='%3.1f%%')
+plt.title('未来三年灾害发生的概率')
+plt.show()
+#处理负数
+plt.rcParams['font.sans-serif'] = ['SimHei']
+for i in range(len(sort2)):
+    sort2[i]=sort2[i]+2
+plt.pie(sort2, labels=['洪水','极端温度','干旱','野火','飓风'],autopct='%3.1f%%')
+plt.title('未来三年灾害发生的概率')
+plt.show()
