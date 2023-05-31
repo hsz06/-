@@ -241,6 +241,7 @@ model = LinearRegression()
 
 
 # 构建特征矩阵,选取温室气体排放，能源转型数据和温度变换数据
+print('温室气体排放，能源转型数据和温度变换数据作为特征值')
 X = np.column_stack((warm_gas[1:], percent[10:],temper[18:-1]))
 y = flood[10:21]
 # 拟合模型
@@ -287,6 +288,7 @@ stormfut = model.predict(future_X)
 print(f"飓风：{stormfut }")
 
 # 构建特征矩阵,选取能源转型数据和温度变换数据
+print('能源转型数据和温度变换数据作为特征值')
 X = np.column_stack((percent,temper[8:-1]))
 y = flood[:21]
 # 拟合模型
