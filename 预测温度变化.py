@@ -2,6 +2,7 @@ import numpy as np
 from matplotlib import pyplot as plt
 from sklearn.linear_model import LinearRegression
 import seaborn as sns
+from sklearn.metrics import accuracy_score
 future_percent=[]
 future_warm_gas=[]
 # 历年能源转型排放数据
@@ -14,8 +15,8 @@ y = percent.reshape(-1, 1)
 # 创建线性回归模型并进行拟合
 model = LinearRegression()
 model.fit(X, y)
-
-# 预测未来三年的数据
+print(f"能源转型模型评估分数{model.score(X,y)}")
+# 预测未来三年的能源转型趋势
 future_X = np.array([[len(percent)+1], [len(percent)+2], [len(percent)+3]])
 future_forecast = model.predict(future_X)
 
@@ -38,8 +39,8 @@ y = warm_gas.reshape(-1, 1)
 # 创建线性回归模型并进行拟合
 model = LinearRegression()
 model.fit(X, y)
-
-# 预测未来三年的数据
+print(f"温室气体模型评估分数{model.score(X,y)}")
+# 预测未来三年的温室气体排放趋势
 future_X = np.array([[21],[22],[23]])
 future_forecast = model.predict(future_X)
 
@@ -64,10 +65,10 @@ temper = np.array([0.22797156398104265, 0.2064306220095694, 0.6108038277511961, 
 temper1=temper[:-1]
 X = np.arange(1, len(temper1)+1).reshape(-1, 1)
 y = temper1.reshape(-1, 1)
-
 # 创建线性回归模型并进行拟合
 model = LinearRegression()
 model.fit(X, y)
+print(f"一元线性回归模型评估分数{model.score(X,y)}")
 
 # 预测未来三年的数据
 future_X = np.array([[21],[22],[23]])
@@ -81,9 +82,10 @@ for i in range(len(future_X)):
     print(f"{year}年预测温度变化：{forecast}")
 
 #温室气体排放和能源转型数据做特征值,当年数据对应当年数据
-print(len(percent))#2000-2020
-print(len(warm_gas))#2010-2021
-print(len(temper))#1991-2021
+print("温室气体排放和能源转型数据做特征值,当年数据对应当年数据:")
+# print(len(percent))#2000-2020
+# print(len(warm_gas))#2010-2021
+# print(len(temper))#1991-2021
 # 创建线性回归模型
 model = LinearRegression()
 
@@ -93,19 +95,22 @@ y = temper[18:-1]
 
 # 拟合模型
 model.fit(X, y)
-
+print(f"评估分数{model.score(X,y)}")
 # 预测未来三年温度变化
 future_X = np.column_stack((future_warm_gas, future_percent))
 future_temper = model.predict(future_X)
 
 print("未来三年温度变化预测：")
+j=2021
 for i in range(len(future_temper)):
-    print(f"第{i+1}年预测温度变化：{future_temper[i]}")
+    print(f"第{j}年预测温度变化：{future_temper[i]}")
+    j=j+1
 
 #温室气体排放和能源转型数据做特征值,两个特征值对温度影响具有延迟性，今年预测明年
-print(len(percent))#2000-2020
-print(len(warm_gas))#2010-2021
-print(len(temper))#1991-2021
+print("温室气体排放和能源转型数据做特征值,两个特征值对温度影响具有延迟性，今年预测明年")
+# print(len(percent))#2000-2020
+# print(len(warm_gas))#2010-2021
+# print(len(temper))#1991-2021
 # 创建线性回归模型
 model = LinearRegression()
 
@@ -115,7 +120,7 @@ y = temper[18:-1]
 
 # 拟合模型
 model.fit(X, y)
-
+print(f"评估分数{model.score(X,y)}")
 # 预测未来三年温度变化
 future_X = np.column_stack((future_warm_gas, future_percent))
 future_temper1 = model.predict(future_X)
@@ -169,11 +174,11 @@ flood=list(count1)
 #求平均值，
 avg=average(flood)
 #处理洪水数量，以平均值作为判定标准，大于平均值为1是易于发生，小于为0不易于发生
-for i in range(len(flood)):
-    if flood[i]>=avg:
-        flood[i]=1
-    else:
-        flood[i]=0
+# for i in range(len(flood)):
+#     if flood[i]>=avg:
+#         flood[i]=1
+#     else:
+#         flood[i]=0
 
 #极端温度
 flag=df['Disaster Type']=='Extreme temperature'
@@ -185,11 +190,11 @@ Extreme_temperature=list(Extreme_temperature_count2)
 #求平均值，
 avg=average(Extreme_temperature)
 #处理特征值，以平均值作为判定标准，大于平均值为1是易于发生，小于为0不易于发生
-for i in range(len(Extreme_temperature)):
-    if Extreme_temperature[i]>=avg:
-        Extreme_temperature[i]=1
-    else:
-        Extreme_temperature[i]=0
+# for i in range(len(Extreme_temperature)):
+#     if Extreme_temperature[i]>=avg:
+#         Extreme_temperature[i]=1
+#     else:
+#         Extreme_temperature[i]=0
 
 #干旱
 flag=df['Disaster Type']=='Drought'
@@ -201,11 +206,11 @@ Drought=list(Droughtcount1)
 #求平均值，
 avg=average(Drought)
 #处理特征值，以平均值作为判定标准，大于平均值为1是易于发生，小于为0不易于发生
-for i in range(len(Drought)):
-    if Drought[i]>=avg:
-        Drought[i]=1
-    else:
-        Drought[i]=0
+# for i in range(len(Drought)):
+#     if Drought[i]>=avg:
+#         Drought[i]=1
+#     else:
+#         Drought[i]=0
 
 #野火
 flag=df['Disaster Type']=='Wildfire'
@@ -216,12 +221,12 @@ Wildfirecount1 = Wildfire['Year'].value_counts(sort=False)
 Wildfire=list(Wildfirecount1)
 #求平均值，
 avg=average(Wildfire)
-#处理特征值，以平均值作为判定标准，大于平均值为1是易于发生，小于为0不易于发生
-for i in range(len(Wildfire)):
-    if Wildfire[i]>=avg:
-        Wildfire[i]=1
-    else:
-        Wildfire[i]=0
+# #处理特征值，以平均值作为判定标准，大于平均值为1是易于发生，小于为0不易于发生
+# for i in range(len(Wildfire)):
+#     if Wildfire[i]>=avg:
+#         Wildfire[i]=1
+#     else:
+#         Wildfire[i]=0
 
 #飓风
 flag=df['Disaster Type']=='Storm'
@@ -232,11 +237,11 @@ storm=list(Stormcount1)
 #求平均值，
 avg=average(storm)
 #处理特征值，以平均值作为判定标准，大于平均值为1是易于发生，小于为0不易于发生
-for i in range(len(storm)):
-    if storm[i]>=avg:
-        storm[i]=1
-    else:
-        storm[i]=0
+# for i in range(len(storm)):
+#     if storm[i]>=avg:
+#         storm[i]=1
+#     else:
+#         storm[i]=0
 model = LinearRegression()
 
 
@@ -247,6 +252,7 @@ X = np.column_stack((warm_gas[1:], percent[10:],temper[18:-1]))
 y = flood[10:21]
 # 拟合模型
 model.fit(X, y)
+print(f"评估分数{model.score(X,y)}")
 future_X = np.column_stack((future_warm_gas, future_percent,future_temper))
 floodfuture = model.predict(future_X)
 print(f"洪水：{floodfuture}")
@@ -256,6 +262,7 @@ X = np.column_stack((warm_gas[1:], percent[10:],temper[18:-1]))
 y = Extreme_temperature[10:21]
 # 拟合模型
 model.fit(X, y)
+print(f"评估分数{model.score(X,y)}")
 future_X = np.column_stack((future_warm_gas, future_percent,future_temper))
 Extreme_temperaturefut = model.predict(future_X)
 print(f"极端温度：{Extreme_temperaturefut}")
@@ -265,6 +272,7 @@ X = np.column_stack((warm_gas[1:], percent[10:],temper[18:-1]))
 y = Drought[10:21]
 # 拟合模型
 model.fit(X, y)
+print(f"评估分数{model.score(X,y)}")
 future_X = np.column_stack((future_warm_gas, future_percent,future_temper))
 Droughtfut = model.predict(future_X)
 print(f"干旱：{Droughtfut }")
@@ -275,7 +283,7 @@ y = Wildfire[10:21]
 
 # 拟合模型
 model.fit(X, y)
-
+print(f"评估分数{model.score(X,y)}")
 future_X = np.column_stack((future_warm_gas, future_percent,future_temper))
 Wildfirefut = model.predict(future_X)
 print(f"野火：{Wildfirefut }")
@@ -285,6 +293,7 @@ X = np.column_stack((warm_gas[1:], percent[10:],temper[18:-1]))
 y = storm[10:21]
 # 拟合模型
 model.fit(X, y)
+print(f"评估分数{model.score(X,y)}")
 future_X = np.column_stack((future_warm_gas, future_percent,future_temper))
 stormfut = model.predict(future_X)
 print(f"飓风：{stormfut }")
@@ -297,6 +306,7 @@ X = np.column_stack((percent,temper[8:-1]))
 y = flood[:21]
 # 拟合模型
 model.fit(X, y)
+print(f"评估分数{model.score(X,y)}")
 future_X = np.column_stack((future_percent,future_temper))
 floodfuture = model.predict(future_X)
 print(f"洪水：{floodfuture}")
@@ -306,6 +316,7 @@ X = np.column_stack((percent,temper[8:-1]))
 y = Extreme_temperature[:21]
 # 拟合模型
 model.fit(X, y)
+print(f"评估分数{model.score(X,y)}")
 future_X = np.column_stack((future_percent,future_temper))
 Extreme_temperaturefut = model.predict(future_X)
 print(f"极端温度：{Extreme_temperaturefut}")
@@ -315,6 +326,7 @@ X = np.column_stack((percent,temper[8:-1]))
 y = Drought[:21]
 # 拟合模型
 model.fit(X, y)
+print(f"评估分数{model.score(X,y)}")
 future_X = np.column_stack((future_percent,future_temper))
 Droughtfut = model.predict(future_X)
 print(f"干旱：{Droughtfut }")
@@ -324,6 +336,7 @@ X = np.column_stack((percent,temper[8:-1]))
 y = Wildfire[:21]
 # 拟合模型
 model.fit(X, y)
+print(f"评估分数{model.score(X,y)}")
 future_X = np.column_stack((future_percent,future_temper))
 Wildfirefut = model.predict(future_X)
 print(f"野火：{Wildfirefut }")
@@ -333,6 +346,7 @@ X = np.column_stack((percent,temper[8:-1]))
 y = storm[:21]
 # 拟合模型
 model.fit(X, y)
+print(f"评估分数{model.score(X,y)}")
 future_X = np.column_stack((future_percent,future_temper))
 stormfut = model.predict(future_X)
 print(f"飓风：{stormfut }")
